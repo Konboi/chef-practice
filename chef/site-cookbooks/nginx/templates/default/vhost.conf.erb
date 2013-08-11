@@ -1,0 +1,47 @@
+upstream rails {
+    <% if node['nginx']['vhost']['upstream_type'] == "port" %>
+      server localhost: ['nginx']['vhost']['port']
+    <% else %>
+      server unix:/home/homepage/apps/prod/current/tmp/sockets/unicorn.sock fail_timeout=60;
+    <% end %>
+}
+
+server {
+    listen   80;
+    access_log <%= node['nginx']['vhost']['access_log'] %>;
+    error_log  <%= node['nginx']['vhost']['access_log'] %>;
+    server_name <%= node['nginx']['vhost']['server_name'] %>;
+    client_max_body_size 10M;
+
+    <% if node['nginx']['vhost']['basic_authenticate'] %>
+    satisfy any;
+    auth_basic_user_file /etc/nginx/vhost.d/.htpasswd;
+    auth_basic "Authentication Required";
+    #include /etc/nginx/allow_common_ip.conf;
+    deny all;
+    <% end %>
+    sendfile on;
+
+    root  <%= node['nginx']['vhost']['root'] %>;
+
+    location / {
+        if ($request_method = OPTIONS ) {
+             add_header Access-Control-Allow-Origin *;
+             add_header Access-Control-Allow-Methods "POST, GET, OPTIONS";
+             add_header Access-Control-Allow-Headers "Origin, Authorization, Accept";
+             add_header Access-Control-Allow-Credentials true;
+             add_header Content-Length 0;
+             add_header Content-Type text/plain;
+             return 200;
+        }
+
+        proxy_pass http://rails;
+    }
+
+    location ~ .*\.(ico|css|js|gif|jpe?g|png|swf|json)(\?[0-9]+)?$ {
+      expires 1y;
+      add_header Cache-Control public;
+      # log_not_found off;
+      break;
+   }
+}
