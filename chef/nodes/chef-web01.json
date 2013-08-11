@@ -1,0 +1,30 @@
+{
+    "local_accounts": {
+      "users": ["homepage"]
+    },
+
+    "rbenv": {
+        "user_installs": [
+            {
+                "user": "homepage",
+                "rubies": ["2.0.0-p247"],
+                "global": "2.0.0-p247",
+                "gems": {
+                    "2.0.0-p247": [
+                        {"name": "bundler"}
+                    ]
+                }
+            }
+        ]
+    },
+
+    "run_list":[
+        "yum::epel",
+        "common-packages",
+        "local-accounts",
+        "nginx",
+        "mysql",
+        "ruby_build",
+        "rbenv::user"
+    ]
+}
