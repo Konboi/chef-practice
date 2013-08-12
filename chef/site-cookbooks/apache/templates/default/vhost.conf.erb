@@ -1,0 +1,22 @@
+<VirtualHost *:<%= node["apache"]["port"] %>>
+    ServerName    <%= node["apache"]["vhost"]["server_name"] %>
+    DocumentRoot  <%= node["apache"]["vhost"]["document_root"] %>
+    ErrorLog      <%= node["apache"]["vhost"]["error_log"] %>
+    CustomLog     <%= node["apache"]["vhost"]["access_log"] %> combined
+
+    <% if node["apache"]["vhost"]["cross_domain_access"] %>
+    Header set Access-Control-Allow-Headers "Content-Type"
+    Header set Access-Control-Allow-Origin *
+    <% end %>
+
+    RewriteEngine On
+    RewriteRule ^/(.*)$ balancer://service/$1 [P,QSA]
+
+    #RewriteRule ^/column(.*)$ balancer://wordpress/$1 [P,QSA]
+
+    <Proxy bpalancer://service/>
+         BalancerMember http://localhost:<%= node["apache"]["vhost"]["port"] %> loadfactor=10
+    </Proxy>
+</VirtualHost>
+
+
