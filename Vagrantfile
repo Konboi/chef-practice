@@ -9,13 +9,13 @@ Vagrant.configure("2") do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "centos6.4"
 
-  config.vm.define :web do |web|
-    web.vm.network :private_network, ip: "192.168.20.100"
-    web.vm.network :forwarded_port, guest: 80, host: 8080
+  config.vm.define :chef01 do |chef01|
+    chef01.vm.network :private_network, ip: "192.168.20.100"
+    chef01.vm.network :forwarded_port, guest: 80, host: 8080
   end
-  config.vm.define :db do |db|
-    db.vm.network :private_network, ip: "192.168.20.101"
-    db.vm.network :forwarded_port, guest: 80, host: 8080
+  config.vm.define :chef02 do |chef02|
+    chef02.vm.network :private_network, ip: "192.168.20.101"
+    chef02.vm.network :forwarded_port, guest: 80, host: 8080
   end
 
   # The url from where the 'config.vm.box' box will be fetched if it
