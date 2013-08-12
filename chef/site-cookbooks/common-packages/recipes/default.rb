@@ -33,8 +33,6 @@ package "strace"
 package "tmux"
 package "irqbalance"
 package "screen"
-package "ImageMagick"
-package "ImageMagick-devel"
 
 service "irqbalance" do
       action [:enable, :start]
