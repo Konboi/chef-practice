@@ -21,6 +21,8 @@
     "run_list":[
         "yum::epel",
         "common-packages",
+        "ImageMagick",
+        "php",
         "mysql",
         "mysql::server",
         "local-accounts",

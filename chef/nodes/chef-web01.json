@@ -21,8 +21,11 @@
     "run_list":[
         "yum::epel",
         "common-packages",
+        "ImageMagick",
+        "php",
         "local-accounts",
         "nginx",
+        "apache",
         "mysql",
         "ruby_build",
         "rbenv::user"
