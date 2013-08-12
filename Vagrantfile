@@ -15,6 +15,7 @@ Vagrant.configure("2") do |config|
   end
   config.vm.define :db do |db|
     db.vm.network :private_network, ip: "192.168.20.101"
+    db.vm.network :forwarded_port, guest: 80, host: 8080
   end
 
   # The url from where the 'config.vm.box' box will be fetched if it
