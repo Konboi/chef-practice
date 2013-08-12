@@ -3,6 +3,15 @@
       "users": ["homepage"]
     },
 
+    "apache": {
+        "port": 80,
+        "vhost": {
+            "port": 3000,
+            "server_name": "chef-practice.com",
+            "document_root": "/home/homepage/apps/prod/current/public"
+        }
+    },
+
     "rbenv": {
         "user_installs": [
             {
@@ -26,6 +35,7 @@
         "local-accounts",
         "nginx",
         "apache",
+        "apache::vhost",
         "mysql",
         "ruby_build",
         "rbenv::user"
