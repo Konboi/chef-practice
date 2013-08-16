@@ -1,10 +1,11 @@
-# CHANGELOG for mysql55
+mysql CHANGELOG
+===============
 
-This file is used to list changes made in each version of mysql55.
+This file is used to list changes made in each version of the mysql cookbook.
 
-## 0.1.0:
-
-* Initial release of mysql55
+0.1.0
+-----
+- [your_name] - Initial release of mysql
 
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
